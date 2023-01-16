@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('masyarakats', function (Blueprint $table) {
-            $table->id('masyarakat_id');
+            $table->id();
             $table->bigInteger('NIK');
             $table->string('nama');
             $table->string('jenis_kelamin');

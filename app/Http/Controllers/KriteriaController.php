@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $kriterias = Kriteria::get();
@@ -20,22 +15,11 @@ class KriteriaController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('kriterias.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -49,35 +33,16 @@ class KriteriaController extends Controller
                         ->with('success','Kriteria created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kriteria  $kriteria
-     * @return \Illuminate\Http\Response
-     */
     public function show(Kriteria $kriteria)
     {
         return view('kriterias.show',compact('kriteria'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kriteria  $kriteria
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Kriteria $kriteria)
     {
         return view('kriterias.edit',compact('kriteria'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kriteria  $kriteria
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Kriteria $kriteria)
     {
         $request->validate([
@@ -91,17 +56,49 @@ class KriteriaController extends Controller
                         ->with('success','Kriteria updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kriteria  $kriteria
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Kriteria $kriteria)
     {
         $kriteria->delete();
     
         return redirect()->route('kriterias.index')
                         ->with('success','Kriteria deleted successfully');
+    }
+
+    public function updateBobot(Kriteria $kriteria) {
+        $kriterias = Kriteria::get()->result();
+        $total_kriteria = count($kriterias);
+
+        $bobot_roc = [];
+        foreach($kriterias as $key => $value) {
+            $id_kriteria = $value->id;
+            $nama_kriteria = $value->nama;
+
+            $total_bobot_per = 0;
+            foreach ($kriterias as $key2 => $value2) {
+                if ($key2 >= $key) {
+                    $bobot_per = 1 / $value2->prioritas;
+                    $total_bobot_per = $total_bobot_per + $bobot_per;
+                }
+            }
+            $bobot = $total_bobot_per / $total_kriteria;
+            $data = array(
+                'id' => $id_kriteria,
+                'nama' => $nama_kriteria,
+                'bobot' => $bobot
+            );
+
+            array_push($bobot_roc, $data);
+        }
+
+        foreach ($bobot_roc as $key3 => $value3) {
+            $id_kriteria = $value3['id'];
+            $bobot = $value3['bobot'];
+
+            $data = array(
+                'bobot' => $bobot
+            );
+
+            $kriteria->update($data, $id_kriteria);
+        }
     }
 }

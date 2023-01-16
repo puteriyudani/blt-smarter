@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('subkriterias', function (Blueprint $table) {
-            $table->id('subkriteria_id');
+            $table->id();
             $table->integer('kriteria_id');
             $table->string('nama');
             $table->integer('prioritas');
