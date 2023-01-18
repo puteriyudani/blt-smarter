@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 class UserController extends Controller
 {
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct() {
+        $this->middleware('guest')->except('logout');
+    }
+
     public function register()
     {
         $data['title'] = 'Register';
@@ -22,12 +28,14 @@ class UserController extends Controller
             'username' => 'required|unique:tb_user',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
+            'level' => 'required',
         ]);
 
         $user = new User([
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+            'level' => $request->level,
         ]);
         $user->save();
 
@@ -47,14 +55,20 @@ class UserController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            return redirect()->intended('/beranda');
-        }
 
-        return back()->withErrors([
-            'password' => 'Wrong username or password',
-        ]);
+        if(Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            if(Auth::user()->level == 'admin') {
+                return redirect()->route('beranda');
+            } else if(Auth::user()->level == 'petugas') {
+                return redirect()->route('masyarakats.index');
+            } else {
+                return redirect()->route('welcome');
+            }
+        } else{
+            return back()->withErrors([
+                'password' => 'Wrong username or password',
+            ]);
+        }
     }
 
     public function password()

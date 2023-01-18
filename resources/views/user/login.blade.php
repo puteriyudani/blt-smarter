@@ -29,6 +29,14 @@
                                     name="password">
                             </div>
 
+                            {{-- <div class="form-group">
+                                <select class="form-select" name="level" id="level" aria-label="Floating label select example">
+                                    <option selected>Level</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="petugas">Petugas</option>
+                                </select>
+                            </div> --}}
+
                             <button class="btn btn-block btn-bold btn-primary">Sign In</button>
                         </div>
                     </form>

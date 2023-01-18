@@ -25,6 +25,14 @@
                             </div>
 
                             <div class="form-group">
+                                <select class="form-select" name="level" id="level" aria-label="Floating label select example">
+                                    <option selected>Level</option>
+                                    <option value="0">Admin</option>
+                                    <option value="1">Petugas</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <input class="form-control" type="password" placeholder="Password" name="password">
                             </div>
 

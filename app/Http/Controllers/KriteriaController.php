@@ -26,9 +26,9 @@ class KriteriaController extends Controller
             'nama' => 'required',
             'prioritas' => 'required',
         ]);
-    
+
         Kriteria::create($request->all());
-     
+
         return redirect()->route('kriterias.index')
                         ->with('success','Kriteria created successfully.');
     }

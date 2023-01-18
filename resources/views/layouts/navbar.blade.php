@@ -125,7 +125,7 @@
 
         <div class="navbar-nav">
             <div class="nav-item text-nowrap ms-3 me-3 mb-2 mt-1">
-                <a class="btnlogout nav-link px-3 btn btn-outline-primary" role="button" href="#">LOGOUT</a>
+                <a class="btnlogout nav-link px-3 btn btn-outline-primary" role="button" href="{{ route('logout') }}">LOGOUT</a>
             </div>
         </div>
     </header>
