@@ -107,44 +107,44 @@ class SubkriteriaController extends Controller
                         ->with('success','Sub Kriteria deleted successfully');
     }
 
-    public function updateBobot(Subkriteria $subkriteria) {
-        $id_kriteria = Kriteria::userdata('id_kriteria');
-        $subkriterias = Subkriteria::getByIds($id_kriteria)->result();
-        $total_subkriteria = count($subkriterias);
+    // public function updateBobot(Subkriteria $subkriteria) {
+    //     $id_kriteria = Kriteria::userdata('id_kriteria');
+    //     $subkriterias = Subkriteria::getByIds($id_kriteria)->result();
+    //     $total_subkriteria = count($subkriterias);
 
-        $bobot_roc = [];
-        foreach($subkriterias as $key => $value) {
-            $id_subkriteria = $value->id;
-            $id_kriteria = $value->kriteria_id;
-            $nama_subkriteria = $value->nama;
+    //     $bobot_roc = [];
+    //     foreach($subkriterias as $key => $value) {
+    //         $id_subkriteria = $value->id;
+    //         $id_kriteria = $value->kriteria_id;
+    //         $nama_subkriteria = $value->nama;
 
-            $total_bobot_per = 0;
-            foreach ($subkriterias as $key2 => $value2) {
-                if ($key2 >= $key) {
-                    $bobot_per = 1 / $value2->prioritas;
-                    $total_bobot_per = $total_bobot_per + $bobot_per;
-                }
-            }
-            $bobot = $total_bobot_per / $total_subkriteria;
-            $data = array(
-                'id' => $id_subkriteria,
-                'kriteria_id' => $id_kriteria,
-                'nama' => $nama_subkriteria,
-                'bobot' => $bobot
-            );
+    //         $total_bobot_per = 0;
+    //         foreach ($subkriterias as $key2 => $value2) {
+    //             if ($key2 >= $key) {
+    //                 $bobot_per = 1 / $value2->prioritas;
+    //                 $total_bobot_per = $total_bobot_per + $bobot_per;
+    //             }
+    //         }
+    //         $bobot = $total_bobot_per / $total_subkriteria;
+    //         $data = array(
+    //             'id' => $id_subkriteria,
+    //             'kriteria_id' => $id_kriteria,
+    //             'nama' => $nama_subkriteria,
+    //             'bobot' => $bobot
+    //         );
 
-            array_push($bobot_roc, $data);
-        }
+    //         array_push($bobot_roc, $data);
+    //     }
 
-        foreach ($bobot_roc as $key3 => $value3) {
-            $id_subkriteria = $value3['id'];
-            $bobot = $value3['bobot'];
+    //     foreach ($bobot_roc as $key3 => $value3) {
+    //         $id_subkriteria = $value3['id'];
+    //         $bobot = $value3['bobot'];
 
-            $data = array(
-                'bobot' => $bobot
-            );
+    //         $data = array(
+    //             'bobot' => $bobot
+    //         );
 
-            $subkriteria->update($data, $id_subkriteria);
-        }
-    }
+    //         $subkriteria->update($data, $id_subkriteria);
+    //     }
+    // }
 }
