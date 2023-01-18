@@ -15,4 +15,8 @@ class Penilaian extends Model
     {
         return $this->belongsTo(Subkriteria::class, 'subkriteria_id');
     }
+
+    public function masyarakats() {
+        return $this->belongsTo(Masyarakat::class, 'masyarakat_id');
+    }
 }
