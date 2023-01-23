@@ -50,7 +50,6 @@
                 <label><input type="radio" name="jenis_kelamin" value="Perempuan" <?php if ($masyarakat['jenis_kelamin'] == 'Perempuan') {
                     echo 'checked';
                 } ?>>Perempuan</label>
-                {{-- <input type="text" name="jenis_kelamin" value="{{ $masyarakat->jenis_kelamin }}" id="inputJenisKelamin" class="form-control" aria-describedby="JenisKelaminHelpInline"> --}}
             </div>
         </div>
         <div class="row g-3 mb-2 align-items-center">

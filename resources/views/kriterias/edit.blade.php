@@ -33,10 +33,8 @@
                 <label for="inputPrioritas" class="col-form-label">Prioritas</label>
             </div>
             <div class="col-auto">
-                <div class="form-outline" style="width: 22rem;">
-                    <input min="1" max="20" type="number" value="{{ $kriteria->prioritas }}"
-                        id="inputPrioritas" class="form-control" aria-describedby="PrioritasHelpInline" />
-                </div>
+                <input type="number" min="1" max="20" name="prioritas" value="{{ $kriteria->prioritas }}" id="inputPrioritas" class="form-control"
+                    aria-describedby="PrioritasHelpInline">
             </div>
         </div>
 

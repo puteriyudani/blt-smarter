@@ -41,6 +41,7 @@
                     <th scope="col">Nama Sub Kriteria</th>
                     <th scope="col">Kategori Kriteria</th>
                     <th scope="col">Prioritas</th>
+                    <th scope="col">Bobot</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -51,10 +52,11 @@
                         <td>{{ $subkriteria->nama }}</td>
                         <td>{{ $subkriteria->kriteria->nama }}</td>
                         <td>{{ $subkriteria->prioritas }}</td>
+                        <td>{{ $subkriteria->bobot }}</td>
                         <td>
                             <form action="{{ route('subkriterias.destroy', $subkriteria->id) }}" method="POST">
                                 <a href="{{ route('subkriterias.edit', $subkriteria->id) }}" style="text-decoration: none;">
-                                    <svg class="bi pe-none" width="20" height="16" style="fill: yellow;">
+                                    <svg class="bi pe-none" width="20" height="16" style="fill: green;">
                                         <use xlink:href="#edit" />
                                     </svg>
                                 </a>

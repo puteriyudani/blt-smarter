@@ -10,16 +10,29 @@ use Illuminate\Http\Request;
 class AlgoritmaController extends Controller
 {
     public function index() {
-        $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();
-        $kriterias = Kriteria::with('subkriterias')->orderBy('nama', 'ASC')->get();
         $penilaian = Penilaian::with('subkriteria', 'masyarakats')->get();
-
         if(count($penilaian) == 0) {
             return redirect(route('penilaian.index'));
         }
 
+        $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();
+        $kriterias = Kriteria::with('subkriterias')->orderBy('nama', 'ASC')->get();
+
         //mencari min max
-        foreach ($kriterias as $kriteria => $value) {
+        $minMax = $this->min_max_penilaian($kriterias, $penilaian);
+
+        //utility
+        $utility = $this->hitung_utility($penilaian, $kriterias, $minMax);
+
+        $nilaiAkhirPerUtility = $this->nilai_akhir_per_utility($utility, $kriterias);
+        
+        // dd($utility);
+        return view('perhitungan.index', compact('masyarakats', 'kriterias', 'utility', 'nilaiAkhirPerUtility'));
+    }
+
+    private function min_max_penilaian($criterias, $penilaian){
+        $minMax = [];
+        foreach ($criterias as $kriteria => $value) {
             foreach ($penilaian as $key => $value1) {
                 if ($value->id == $value1->subkriteria->kriteria_id) {
                     $minMax[$value->id][] = $value1->subkriteria->bobot;
@@ -27,25 +40,70 @@ class AlgoritmaController extends Controller
             }
         }
 
-        //utility
+        return $minMax;
+    }
+
+    private function hitung_utility($penilaian, $criterias, $minMax) {
+        $utilities = [];
+
         foreach ($penilaian as $key => $value1) {
-            foreach ($kriterias as $kriteria => $value) {
+            foreach ($criterias as $kriteria => $value) {
                 if ($value->id == $value1->subkriteria->kriteria_id) {
-                    $utility[$value1->masyarakats->nama][] = 
-                    ($value1->subkriteria->bobot - min($minMax[$value->id])) / (max($minMax[$value->id]) - min($minMax[$value->id]));
+                    $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / (max($minMax[$value->id]) - min($minMax[$value->id])), 2);
                 }
             }
         }
+        // dd($utilities);
+        return $utilities;
+    }
 
-        //perangkingan
-        foreach ($utility as $key => $value) {
-            foreach ($kriterias as $kriteria => $value1) {
-                // dd($kriterias);
-                $rank[$key][] = $value1->bobot * $value[$value1->id];
+    private function nilai_akhir_per_utility($utilities, $criterias) {
+        $result = [];
+        // hasil = utility * bobot
+        foreach ($utilities as $name => $utilityVal) {
+            foreach ($criterias as $criteria => $criteriaVal) {
+                $result[$name][] = round($criteriaVal->bobot * $utilityVal[$criteriaVal->id - 1], 2);
             }
         }
-        
-        // dd($utility);
-        return view('perhitungan.index', compact('masyarakats', 'kriterias', 'utility', 'rank'));
+
+        return $result;
+    }
+
+    private function prosesrank($utility, $nilaiAkhirPerUtility) {
+        $nilaiAkhir = [];
+        foreach ($utility as $key => $value) {
+            $nilaiAkhir[$key][] = array_sum($nilaiAkhirPerUtility[$key]) * 100;
+        }
+
+        arsort($nilaiAkhir);
+        return $nilaiAkhir;
+    }
+
+    public function rank() {
+        $penilaian = Penilaian::with('subkriteria', 'masyarakats')->get();
+        if(count($penilaian) == 0) {
+            return redirect(route('penilaian.index'));
+        }
+
+        $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();
+        $kriterias = Kriteria::with('subkriterias')->orderBy('nama', 'ASC')->get();
+
+        //mencari min max
+        $minMax = $this->min_max_penilaian($kriterias, $penilaian);
+
+        //utility
+        $utility = $this->hitung_utility($penilaian, $kriterias, $minMax);
+
+        $nilaiAkhirPerUtility = $this->nilai_akhir_per_utility($utility, $kriterias);
+
+        //rank
+        $nilaiAkhir = $this->prosesrank($utility, $nilaiAkhirPerUtility);
+        return view('rangking.index', compact('masyarakats', 'nilaiAkhir'));
+    }
+
+    public function laporan() {
+        $laporan = $this->rank();
+        // $pdf = PDF::loadview('laporan_pdf',['laporan'=>$laporan]);
+        // return $pdf->download('laporan-pdf');
     }
 }

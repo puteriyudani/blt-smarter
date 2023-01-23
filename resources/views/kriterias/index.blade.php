@@ -40,6 +40,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Nama Kriteria</th>
                     <th scope="col">Prioritas</th>
+                    <th scope="col">Bobot</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -49,6 +50,7 @@
                         <td>{{ ++$i }}</td>
                         <td>{{ $kriteria->nama }}</td>
                         <td>{{ $kriteria->prioritas }}</td>
+                        <td>{{ $kriteria->bobot }}</td>
                         <td>
                             <form action="{{ route('kriterias.destroy', $kriteria->id) }}" method="POST">
                                 <a href="{{ route('kriterias.edit', $kriteria->id) }}" style="text-decoration: none;">

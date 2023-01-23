@@ -188,19 +188,19 @@
                         <hr>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{{ route('perhitungan.index') }}" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="#penerima" />
                                 </svg>
-                                Penerima BLT
+                                Perhitungan
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
+                            <a href="{{ route('rangking.index') }}" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="#laporan" />
                                 </svg>
-                                Laporan
+                                Rank Penerima BLT
                             </a>
                         </li>
                     </ul>

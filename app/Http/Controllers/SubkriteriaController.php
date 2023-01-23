@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Subkriteria;
 use App\Models\Kriteria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\Mailer\Transport\Dsn;
 
 class SubkriteriaController extends Controller
 {
@@ -36,7 +38,7 @@ class SubkriteriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Subkriteria $subkriteria)
     {
         $request->validate([
             'nama' => 'required',
@@ -44,7 +46,8 @@ class SubkriteriaController extends Controller
             'prioritas' => 'required',
         ]);
     
-        Subkriteria::create($request->all());
+        $subkriteria->create($request->all());
+        $this->updateBobot($subkriteria);
      
         return redirect()->route('subkriterias.index')
                         ->with('success','Sub Kriteria created successfully.');
@@ -69,7 +72,8 @@ class SubkriteriaController extends Controller
      */
     public function edit(Subkriteria $subkriteria)
     {
-        return view('subkriterias.edit',compact('subkriteria'));
+        $kriterias = Kriteria::all();
+        return view('subkriterias.edit',compact('subkriteria', 'kriterias'));
     }
 
     /**
@@ -84,11 +88,21 @@ class SubkriteriaController extends Controller
         $request->validate([
             'nama' => 'required',
             'kriteria_id' => 'required',
+            // 'kriteria_id_old' => 'required',
             'prioritas' => 'required',
         ]);
-    
+        // if ($request->kriteria_id != $request->kriteria_id_old) {
+        //     // jika kriteria_id berubah, maka update prioritas dan bobot pada tabel sumber dan tujuan
+            
+        // } else {
+        //     // jika prioritas saja yang berubah, maka update prioritas dan bobot tabel sumber saja
+        //     $subkriteria->update($request->all());
+        //     $this->updateBobot($subkriteria);
+        // }
+
         $subkriteria->update($request->all());
-    
+            $this->updateBobot($subkriteria);
+
         return redirect()->route('subkriterias.index')
                         ->with('success','Sub Kriteria updated successfully');
     }
@@ -107,44 +121,37 @@ class SubkriteriaController extends Controller
                         ->with('success','Sub Kriteria deleted successfully');
     }
 
-    // public function updateBobot(Subkriteria $subkriteria) {
-    //     $id_kriteria = Kriteria::userdata('id_kriteria');
-    //     $subkriterias = Subkriteria::getByIds($id_kriteria)->result();
-    //     $total_subkriteria = count($subkriterias);
+    private function updateBobot(Subkriteria $subkriteria) {
+        $subkriterias = Subkriteria::where('kriteria_id', $subkriteria->kriteria_id)->orderBy('prioritas')->get();
+        // dd($subkriterias);
+        $total_subkriteria = count($subkriterias);
 
-    //     $bobot_roc = [];
-    //     foreach($subkriterias as $key => $value) {
-    //         $id_subkriteria = $value->id;
-    //         $id_kriteria = $value->kriteria_id;
-    //         $nama_subkriteria = $value->nama;
+        $bobot_roc = [];
+        foreach($subkriterias as $key => $value) {
+            $id_subkriteria = $value->id;
+            $id_kriteria = $value->kriteria_id;
 
-    //         $total_bobot_per = 0;
-    //         foreach ($subkriterias as $key2 => $value2) {
-    //             if ($key2 >= $key) {
-    //                 $bobot_per = 1 / $value2->prioritas;
-    //                 $total_bobot_per = $total_bobot_per + $bobot_per;
-    //             }
-    //         }
-    //         $bobot = $total_bobot_per / $total_subkriteria;
-    //         $data = array(
-    //             'id' => $id_subkriteria,
-    //             'kriteria_id' => $id_kriteria,
-    //             'nama' => $nama_subkriteria,
-    //             'bobot' => $bobot
-    //         );
+            $total_bobot_per = 0;
+            foreach ($subkriterias as $key2 => $value2) {
+                if ($key2 >= $key) {
+                    $bobot_per = 1 / $value2->prioritas;
+                    $total_bobot_per = $total_bobot_per + $bobot_per;
+                }
+            }
+            $bobot = $total_bobot_per / $total_subkriteria;
+            $data = array(
+                'id' => $id_subkriteria,
+                'kriteria_id' => $id_kriteria,
+                'bobot' => $bobot
+            );
 
-    //         array_push($bobot_roc, $data);
-    //     }
+            array_push($bobot_roc, $data);
+        }
 
-    //     foreach ($bobot_roc as $key3 => $value3) {
-    //         $id_subkriteria = $value3['id'];
-    //         $bobot = $value3['bobot'];
-
-    //         $data = array(
-    //             'bobot' => $bobot
-    //         );
-
-    //         $subkriteria->update($data, $id_subkriteria);
-    //     }
-    // }
+        foreach ($bobot_roc as $key3 => $value3) {
+            $id_subkriteria = $value3['id'];
+            $bobot = $value3['bobot'];
+            $subkriteria->where('id', $id_subkriteria)->update(['bobot' => $bobot]);
+        }
+    }
 }

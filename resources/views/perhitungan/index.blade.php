@@ -45,7 +45,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
-                        <th scope="col">Masyarakat / Kriteria</th>
+                        <th scope="col">Nama Masyarakat</th>
                         @foreach ($kriterias as $kriteria => $value)
                             <th>{{ $value->nama }}</th>
                         @endforeach
@@ -70,7 +70,7 @@
     <div class="card shadow mb-4 mt-3">
         <div class="card-body">
             <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2 me-3">Perangkingan</h1>
+                <h1 class="h2 me-3">Nilai Akhir</h1>
             </div>
             <table class="table table-striped table-sm">
                 <thead>
@@ -88,7 +88,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @foreach ($nilaiAkhirPerUtility as $key => $value)
+                        <tr>
+                            <td>{{ $key }}</td>
+                            @foreach ($value as $key_1 => $value_1)
+                                <td>{{ $value_1 }}</td>
+                            @endforeach
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
