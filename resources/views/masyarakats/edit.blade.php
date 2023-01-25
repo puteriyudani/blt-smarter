@@ -1,4 +1,4 @@
-@extends('layouts.navbar')
+@extends('layouts.navbar2')
 
 @section('content')
     <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">

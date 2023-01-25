@@ -58,11 +58,11 @@ class UserController extends Controller
 
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             if(Auth::user()->level == 'admin') {
-                return redirect()->route('beranda');
+                return redirect()->route('berandaadmin');
             } else if(Auth::user()->level == 'petugas') {
-                return redirect()->route('masyarakats.index');
+                return redirect()->route('beranda');
             } else {
-                return redirect()->route('welcome');
+                return redirect()->route('register');
             }
         } else{
             return back()->withErrors([

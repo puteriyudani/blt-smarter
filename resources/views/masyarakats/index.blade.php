@@ -1,4 +1,4 @@
-@extends('layouts.navbar')
+@extends('layouts.navbar2')
 
 @section('content')
     <!-- svg -->
@@ -56,7 +56,7 @@
                         <td>
                             <form action="{{ route('masyarakats.destroy', $masyarakat->id) }}" method="POST">
                                 <a href="{{ route('masyarakats.edit', $masyarakat->id) }}" style="text-decoration: none;">
-                                    <svg class="bi pe-none" width="20" height="16" style="fill: yellow;">
+                                    <svg class="bi pe-none" width="20" height="16" style="fill: green;">
                                         <use xlink:href="#edit" />
                                     </svg>
                                 </a>

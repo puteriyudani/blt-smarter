@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
 {
-
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();

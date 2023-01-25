@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class AlgoritmaController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     public function index() {
         $penilaian = Penilaian::with('subkriteria', 'masyarakats')->get();
         if(count($penilaian) == 0) {

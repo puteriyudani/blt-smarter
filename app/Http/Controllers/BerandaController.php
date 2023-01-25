@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
 use App\Models\Masyarakat;
+use App\Models\Subkriteria;
 
 class BerandaController extends Controller
 {
@@ -11,10 +12,16 @@ class BerandaController extends Controller
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function beranda() {
         $masyarakats = Masyarakat::count();
-        $kriterias = Kriteria::count();   
 
-        return view('beranda', compact('masyarakats', 'kriterias'));
+        return view('beranda', compact('masyarakats'));
+    }
+
+    public function berandaadmin() {
+        $kriterias = Kriteria::count();
+        $subkriterias = Subkriteria::count();
+
+        return view('berandaadmin', compact('kriterias', 'subkriterias'));
     }
 }

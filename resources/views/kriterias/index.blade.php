@@ -54,7 +54,7 @@
                         <td>
                             <form action="{{ route('kriterias.destroy', $kriteria->id) }}" method="POST">
                                 <a href="{{ route('kriterias.edit', $kriteria->id) }}" style="text-decoration: none;">
-                                    <svg class="bi pe-none" width="20" height="16" style="fill: yellow;">
+                                    <svg class="bi pe-none" width="20" height="16" style="fill: green;">
                                         <use xlink:href="#edit" />
                                     </svg>
                                 </a>

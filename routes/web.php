@@ -34,20 +34,18 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 //admin
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('beranda', [BerandaController::class, 'index'])->name('beranda');
+    Route::get('berandaadmin', [BerandaController::class, 'berandaadmin'])->name('berandaadmin');
     Route::resource('kriterias', KriteriaController::class);
     Route::resource('subkriterias', SubkriteriaController::class);
-    Route::resource('masyarakats', MasyarakatController::class);
-    Route::resource('penilaian', PenilaianController::class);
+    
+    //perhitungan
+    Route::get('perhitungan', [AlgoritmaController::class, 'index'])->name('perhitungan.index');
 });
 
 //petugas
 Route::middleware(['auth', 'user-access:petugas'])->group(function () {
-    
+    Route::get('beranda', [BerandaController::class, 'beranda'])->name('beranda');
+    Route::resource('masyarakats', MasyarakatController::class);
+    Route::resource('penilaian', PenilaianController::class);
+    Route::get('rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
 });
-
-//perhitungan
-Route::get('/perhitungan', [AlgoritmaController::class, 'index'])->name('perhitungan.index');
-
-//rangking
-Route::get('/rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
