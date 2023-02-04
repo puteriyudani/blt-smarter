@@ -19,9 +19,10 @@ class BerandaController extends Controller
     }
 
     public function berandaadmin() {
+        $masyarakats = Masyarakat::count();
         $kriterias = Kriteria::count();
         $subkriterias = Subkriteria::count();
 
-        return view('berandaadmin', compact('kriterias', 'subkriterias'));
+        return view('berandaadmin', compact('kriterias', 'subkriterias', 'masyarakats'));
     }
 }

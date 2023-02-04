@@ -97,12 +97,27 @@
             <path
                 d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z" />
         </symbol>
+
+        <symbol id="kriteria" viewBox="0 0 16 16">
+            <path
+                d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z" />
+        </symbol>
+        <symbol id="subkriteria" viewBox="0 0 16 16">
+            <path
+                d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z" />
+            <path
+                d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z" />
+        </symbol>
+        <symbol id="perhitungan" viewBox="0 0 16 16">
+            <path
+                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z" />
+        </symbol>
     </svg>
 
     {{-- NAVBAR --}}
     <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 fs-6" href="{{ asset('img/logo.png') }}">
-            <img class="img-fluid ms-3 me-2" src="img/logo.png" alt="logo" width="30" />
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 fs-6" href="{{ route('beranda') }}">
+            <img class="img-fluid ms-3 me-2" src="{{ asset('asset') }}/image/logo.png" alt="logo" width="30" />
             BLT-DD SMARTER
         </a>
 
@@ -160,9 +175,33 @@
                                 Penilaian
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('kriterias.index') }}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="#kriteria" />
+                                </svg>
+                                Kriteria
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('subkriterias.index') }}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="#subkriteria" />
+                                </svg>
+                                Sub Kriteria
+                            </a>
+                        </li>
 
                         <hr>
-
+                        
+                        <li class="nav-item">
+                            <a href="{{ route('perhitungan.index') }}" class="nav-link text-white">
+                                <svg class="bi pe-none me-2" width="16" height="16">
+                                    <use xlink:href="#perhitungan" />
+                                </svg>
+                                Perhitungan
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('rangking.index') }}" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16">

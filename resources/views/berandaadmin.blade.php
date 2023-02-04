@@ -6,11 +6,15 @@
             <h1 class="h2">Beranda</h1>
         </div>
         <div class="mb-5">
-            <a href="{{ route('kriterias.index') }}" class="btn btn-primary btn-lg px-4 me-3">
+            <a href="{{ route('masyarakats.index') }}" class="btn btn-primary btn-lg px-4 me-3">
+                <h2>{{ $masyarakats }}</h2>
+                <p>Data Masyarakat</p>
+            </a>
+            <a href="{{ route('kriterias.index') }}" class="btn btn-success btn-lg px-4 me-3">
                 <h2>{{ $kriterias }}</h2>
                 <p>Data Kriteria</p>
             </a>
-            <a href="{{ route('subkriterias.index') }}" class="btn btn-success btn-lg px-4 me-3">
+            <a href="{{ route('subkriterias.index') }}" class="btn btn-secondary btn-lg px-4 me-3">
                 <h2>{{ $subkriterias }}</h2>
                 <p>Data Sub Kriteria</p>            
             </a>

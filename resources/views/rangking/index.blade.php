@@ -1,4 +1,4 @@
-@extends('layouts.navbar2')
+@extends('layouts.navbar')
 
 @section('content')
     <div class="card shadow mb-4 mt-3">

@@ -1,4 +1,4 @@
-@extends('layouts.navbar2')
+@extends('layouts.navbar')
 
 @section('content')
     <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
@@ -18,13 +18,11 @@
     <form action="{{ route('masyarakats.store') }}" method="POST">
         @csrf
         <div class="row g-3 mb-2 align-items-center">
-            <div class="form-group">
-                <div class="col-2">
-                    <label for="inputNIK" class="col-form-label">NIK</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" name="NIK" id="inputNIK" class="form-control" aria-describedby="NIKHelpInline">
-                </div>
+            <div class="col-2">
+                <label for="inputNIK" class="col-form-label">NIK</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" name="NIK" id="inputNIK" class="form-control" aria-describedby="NIKHelpInline">
             </div>
         </div>
         <div class="row g-3 mb-2 align-items-center">
