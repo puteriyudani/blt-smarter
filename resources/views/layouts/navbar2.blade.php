@@ -142,7 +142,7 @@
             {{-- SIDEBAR --}}
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
                 <div class="position-sticky pt-3 sidebar-sticky">
-                    <a href="/"
+                    <a href="/beranda"
                         class="d-flex align-items-center mt-2 mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <svg class="bi pe-none me-2 ms-2" width="40" height="32">
                             <use xlink:href="#person" />

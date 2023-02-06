@@ -20,7 +20,7 @@ class AlgoritmaController extends Controller
         }
 
         $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();
-        $kriterias = Kriteria::with('subkriterias')->orderBy('nama', 'ASC')->get();
+        $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
 
         //mencari min max
         $minMax = $this->min_max_penilaian($kriterias, $penilaian);
@@ -54,6 +54,7 @@ class AlgoritmaController extends Controller
             foreach ($criterias as $kriteria => $value) {
                 if ($value->id == $value1->subkriteria->kriteria_id) {
                     $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / (max($minMax[$value->id]) - min($minMax[$value->id])), 2);
+                    // dd($value1->masyarakats->nama);
                 }
             }
         }
@@ -90,7 +91,7 @@ class AlgoritmaController extends Controller
         }
 
         $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();
-        $kriterias = Kriteria::with('subkriterias')->orderBy('nama', 'ASC')->get();
+        $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
 
         //mencari min max
         $minMax = $this->min_max_penilaian($kriterias, $penilaian);

@@ -65,6 +65,7 @@ class KriteriaController extends Controller
     public function destroy(Kriteria $kriteria)
     {
         $kriteria->delete();
+        $this->updateBobot($kriteria);
     
         return redirect()->route('kriterias.index')
                         ->with('success','Kriteria deleted successfully');

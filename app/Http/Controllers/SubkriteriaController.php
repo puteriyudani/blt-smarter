@@ -105,7 +105,7 @@ class SubkriteriaController extends Controller
         // }
 
         $subkriteria->update($request->all());
-            $this->updateBobot($subkriteria);
+        $this->updateBobot($subkriteria);
 
         return redirect()->route('subkriterias.index')
                         ->with('success','Sub Kriteria updated successfully');
@@ -120,6 +120,7 @@ class SubkriteriaController extends Controller
     public function destroy(Subkriteria $subkriteria)
     {
         $subkriteria->delete();
+        $this->updateBobot($subkriteria);
     
         return redirect()->route('subkriterias.index')
                         ->with('success','Sub Kriteria deleted successfully');

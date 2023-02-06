@@ -19,7 +19,7 @@ class PenilaianController extends Controller
     public function index()
     {
         $masyarakats = Masyarakat::with('penilaian.subkriteria')->get();
-        $kriterias = Kriteria::with('subkriterias')->orderBy('nama', 'ASC')->get();
+        $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
         // return response()->json($masyarakats);
         return view('penilaian.index', compact('masyarakats', 'kriterias'));
     }
