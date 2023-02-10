@@ -40,16 +40,12 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     
     //perhitungan
     Route::get('perhitungan', [AlgoritmaController::class, 'index'])->name('perhitungan.index');
-
-    Route::resource('masyarakats', MasyarakatController::class);
-    Route::resource('penilaian', PenilaianController::class);
-    Route::get('rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
 });
 
 //petugas
 Route::middleware(['auth', 'user-access:petugas'])->group(function () {
     Route::get('beranda', [BerandaController::class, 'beranda'])->name('beranda');
-    // Route::resource('masyarakats', MasyarakatController::class);
-    // Route::resource('penilaian', PenilaianController::class);
-    // Route::get('rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
+    Route::resource('masyarakats', MasyarakatController::class);
+    Route::resource('penilaian', PenilaianController::class);
+    Route::get('rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
 });
