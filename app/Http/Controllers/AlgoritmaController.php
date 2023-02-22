@@ -53,7 +53,7 @@ class AlgoritmaController extends Controller
         foreach ($penilaian as $key => $value1) {
             foreach ($criterias as $kriteria => $value) {
                 if ($value->id == $value1->subkriteria->kriteria_id) {
-                    $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / (max($minMax[$value->id]) - min($minMax[$value->id])), 2);
+                    $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / (max($minMax[$value->id]) - min($minMax[$value->id])), 3);
                     // dd($value1->masyarakats->nama);
                 }
             }
@@ -67,7 +67,7 @@ class AlgoritmaController extends Controller
         // hasil = utility * bobot
         foreach ($utilities as $name => $utilityVal) {
             foreach ($criterias as $criteria => $criteriaVal) {
-                $result[$name][] = round($criteriaVal->bobot * $utilityVal[$criteriaVal->id - 1], 2);
+                $result[$name][] = round($criteriaVal->bobot * $utilityVal[$criteriaVal->id - 1], 3);
             }
         }
 
