@@ -92,17 +92,8 @@ class SubkriteriaController extends Controller
         $request->validate([
             'nama' => 'required',
             'kriteria_id' => 'required',
-            // 'kriteria_id_old' => 'required',
             'prioritas' => 'required',
         ]);
-        // if ($request->kriteria_id != $request->kriteria_id_old) {
-        //     // jika kriteria_id berubah, maka update prioritas dan bobot pada tabel sumber dan tujuan
-            
-        // } else {
-        //     // jika prioritas saja yang berubah, maka update prioritas dan bobot tabel sumber saja
-        //     $subkriteria->update($request->all());
-        //     $this->updateBobot($subkriteria);
-        // }
 
         $subkriteria->update($request->all());
         $this->updateBobot($subkriteria);
