@@ -19,6 +19,12 @@
         </symbol>
     </svg>
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
     <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 me-3">Data Masyarakat</h1>
         <a href="{{ route('masyarakats.create') }}">
@@ -27,14 +33,16 @@
             </svg>
         </a>
     </div>
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
+
+    <form method="POST" action="{{ route('import.excel') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="excel_file" accept=".xlsx, .xls, .csv">
+        <button type="submit">Import</button>
+    </form>
 
     <div class="table-responsive">
         <table class="table table-striped table-sm">
+            {{-- <a class="btn btn-warning float-end" href="{{ route('masyarakats.export') }}">Export Data Masyarakat</a> --}}
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -77,7 +85,7 @@
         </table>
     </div>
 
-    {{-- {!! $masyarakats->links() !!} --}}
+    {!! $masyarakats->links() !!}
 @endsection
 
 @push('css')

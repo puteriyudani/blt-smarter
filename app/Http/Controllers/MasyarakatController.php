@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MasyarakatExport;
+use App\Imports\MasyarakatImport;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 
 class MasyarakatController extends Controller
 {
@@ -17,7 +20,7 @@ class MasyarakatController extends Controller
      */
     public function index()
     {
-        $masyarakats = Masyarakat::get();
+        $masyarakats = Masyarakat::paginate(20);
     
         return view('masyarakats.index', compact('masyarakats'))
             ->with('i', (request()->input('page', 1) - 1) * 5);

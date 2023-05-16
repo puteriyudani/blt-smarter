@@ -3,6 +3,7 @@
 use App\Http\Controllers\AlgoritmaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PenilaianController;
@@ -48,4 +49,5 @@ Route::middleware(['auth', 'user-access:petugas'])->group(function () {
     Route::resource('masyarakats', MasyarakatController::class);
     Route::resource('penilaian', PenilaianController::class);
     Route::get('rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
+    Route::post('import-excel', [ExcelController::class, 'import'])->name('import.excel');
 });
