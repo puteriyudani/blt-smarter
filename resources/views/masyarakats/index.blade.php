@@ -36,7 +36,7 @@
 
     <form method="POST" action="{{ route('import.excel') }}" enctype="multipart/form-data">
         @csrf
-        <input type="file" name="excel_file" accept=".xlsx, .xls, .csv">
+        <input type="file" name="file" accept=".xlsx, .xls, .csv">
         <button type="submit">Import</button>
     </form>
 

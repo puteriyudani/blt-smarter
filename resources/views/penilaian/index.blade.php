@@ -71,6 +71,8 @@
 
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
+
+    {{-- {!! $masyarakats->links() !!} --}}
 @endsection
 
 @push('css')

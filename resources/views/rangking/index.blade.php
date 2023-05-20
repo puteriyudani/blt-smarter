@@ -6,6 +6,7 @@
             <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2 me-3">Rangking</h1>
             </div>
+
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
