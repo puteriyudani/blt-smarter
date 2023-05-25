@@ -75,7 +75,7 @@
         </table>
     </div>
 
-    {{-- {!! $kriterias->links() !!} --}}
+    {!! $kriterias->links() !!}
 @endsection
 
 @push('css')

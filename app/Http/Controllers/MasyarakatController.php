@@ -23,7 +23,7 @@ class MasyarakatController extends Controller
         $masyarakats = Masyarakat::paginate(20);
     
         return view('masyarakats.index', compact('masyarakats'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 20);
     }
 
     /**
@@ -111,7 +111,6 @@ class MasyarakatController extends Controller
     {
         $masyarakat->delete();
     
-        return redirect()->route('masyarakats.index')
-                        ->with('success','Masyarakat deleted successfully');
+        return back()->with('success','Masyarakat deleted successfully');
     }
 }

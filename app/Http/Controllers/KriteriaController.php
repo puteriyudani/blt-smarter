@@ -13,10 +13,10 @@ class KriteriaController extends Controller
     
     public function index()
     {
-        $kriterias = Kriteria::get();
+        $kriterias = Kriteria::paginate(10);
     
         return view('kriterias.index', compact('kriterias'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function create()

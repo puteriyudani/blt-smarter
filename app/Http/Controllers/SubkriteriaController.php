@@ -21,8 +21,8 @@ class SubkriteriaController extends Controller
      */
     public function index()
     {
-        $subkriterias = Subkriteria::with('kriteria')->get();
-        return view('subkriterias.index', compact('subkriterias'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $subkriterias = Subkriteria::with('kriteria')->paginate(10);
+        return view('subkriterias.index', compact('subkriterias'))->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -49,10 +49,10 @@ class SubkriteriaController extends Controller
             'kriteria_id' => 'required',
             'prioritas' => 'required',
         ]);
-    
+
         $subkriteria->create($request->all());
         $this->updateBobot($subkriteria);
-     
+
         return redirect()->route('subkriterias.index')
                         ->with('success','Sub Kriteria created successfully.');
     }

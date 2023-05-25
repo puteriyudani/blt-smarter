@@ -103,7 +103,8 @@ class AlgoritmaController extends Controller
 
         //rank
         $nilaiAkhir = $this->prosesrank($utility, $nilaiAkhirPerUtility);
-        return view('rangking.index', compact('masyarakats', 'nilaiAkhir'));
+        return view('rangking.index', compact('masyarakats', 'nilaiAkhir'))
+            ->with('i');
     }
 
     public function laporan() {

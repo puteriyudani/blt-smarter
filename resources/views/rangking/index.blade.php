@@ -10,8 +10,9 @@
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
+                        <th scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Nilai Akhir (%)</th>
+                        <th scope="col">Nilai Akhir</th>
                         <th scope="col">Rank</th>
                     </tr>
                 </thead>
@@ -20,15 +21,20 @@
                         $no = 1;
                     @endphp
 
-                    @foreach ($nilaiAkhir as $key => $value)
+                    @forelse ($nilaiAkhir as $key => $value)
                         <tr>
+                            <td>{{ ++$i }}</td>
                             <td>{{ $key }}</td>
                             @foreach ($value as $key_1 => $value_1)
-                                <td>{{ $value_1 }}</td>
+                                <td>{{ $value_1 }} %</td>
                             @endforeach
                             <td>{{ $no++ }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td>Tidak ada data</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
