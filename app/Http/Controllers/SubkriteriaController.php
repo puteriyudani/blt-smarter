@@ -42,20 +42,20 @@ class SubkriteriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Subkriteria $subkriteria)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'kriteria_id' => 'required',
-            'prioritas' => 'required',
-        ]);
+    public function store(Request $request)
+{
+    $request->validate([
+        'nama' => 'required',
+        'kriteria_id' => 'required',
+        'prioritas' => 'required',
+    ]);
 
-        $subkriteria->create($request->all());
-        $this->updateBobot($subkriteria);
+    $subkriteria = Subkriteria::create($request->all());
+    $this->updateBobot($subkriteria);
 
-        return redirect()->route('subkriterias.index')
-                        ->with('success','Sub Kriteria created successfully.');
-    }
+    return redirect()->route('subkriterias.index')
+                    ->with('success','Sub Kriteria created successfully.');
+}
 
     /**
      * Display the specified resource.
@@ -119,7 +119,6 @@ class SubkriteriaController extends Controller
 
     private function updateBobot(Subkriteria $subkriteria) {
         $subkriterias = Subkriteria::where('kriteria_id', $subkriteria->kriteria_id)->orderBy('prioritas')->get();
-        // dd($subkriterias);
         $total_subkriteria = count($subkriterias);
 
         $bobot_roc = [];
