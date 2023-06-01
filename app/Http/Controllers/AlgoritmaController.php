@@ -67,9 +67,16 @@ class AlgoritmaController extends Controller
         // hasil = utility * bobot
         foreach ($utilities as $name => $utilityVal) {
             foreach ($criterias as $criteria => $criteriaVal) {
-                $result[$name][] = round($criteriaVal->bobot * $utilityVal[$criteriaVal->id - 1], 3);
+                $key = $criteriaVal->id - 1;
+    
+                if (array_key_exists($key, $utilityVal)) {
+                    $result[$name][] = round($criteriaVal->bobot * $utilityVal[$key], 3);
+                } else {
+                    // Pesan error jika kunci tidak ditemukan
+                    $result[$name][] = "-";
+                }
             }
-        }
+        }    
 
         return $result;
     }

@@ -1,6 +1,16 @@
 @extends('layouts.navbar2')
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card shadow mb-4 mt-3">
         <div class="card-body">
             <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
@@ -52,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($utility as $key => $value)
+                    @forelse ($utility as $key => $value)
                         <tr>
                             <td>{{ $key }}</td>
                             @foreach ($value as $key1 => $value1)
@@ -61,7 +71,11 @@
                                 </td>
                             @endforeach
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td>Tidak ada data</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -88,14 +102,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($nilaiAkhirPerUtility as $key => $value)
+                    @forelse ($nilaiAkhirPerUtility as $key => $value)
                         <tr>
                             <td>{{ $key }}</td>
                             @foreach ($value as $key_1 => $value_1)
                                 <td>{{ $value_1 }}</td>
                             @endforeach
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td>Tidak ada data</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
