@@ -9,6 +9,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th scope="col">Nama Masyarakat</th>
                         @foreach ($kriterias as $kriteria => $value)
                             <th>{{ $value->nama }}</th>
@@ -18,6 +19,7 @@
                 <tbody>
                     @forelse ($masyarakats as $masyarakat => $valt)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $valt->nama }}</td>
                             @if (count($valt->penilaian) > 0)
                                 @foreach ($valt->penilaian as $key => $value)
@@ -45,6 +47,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th scope="col">Nama Masyarakat</th>
                         @foreach ($kriterias as $kriteria => $value)
                             <th>{{ $value->nama }}</th>
@@ -54,6 +57,7 @@
                 <tbody>
                     @forelse ($utility as $key => $value)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $key }}</td>
                             @foreach ($value as $key1 => $value1)
                                 <td>
@@ -80,11 +84,13 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th></th>
                         @foreach ($kriterias as $kriteria => $value)
                             <th>{{ $value->nama }}</th>
                         @endforeach
                     </tr>
                     <tr>
+                        <th>No</th>
                         <th>Bobot</th>
                         @foreach ($kriterias as $kriteria => $value)
                             <th>{{ $value->bobot }}</th>
@@ -94,6 +100,7 @@
                 <tbody>
                     @forelse ($nilaiAkhirPerUtility as $key => $value)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $key }}</td>
                             @foreach ($value as $key_1 => $value_1)
                                 <td>{{ $value_1 }}</td>
