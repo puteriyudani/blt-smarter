@@ -113,10 +113,4 @@ class AlgoritmaController extends Controller
         return view('rangking.index', compact('masyarakats', 'nilaiAkhir'))
             ->with('i');
     }
-
-    public function laporan() {
-        $laporan = $this->rank();
-        // $pdf = PDF::loadview('laporan_pdf',['laporan'=>$laporan]);
-        // return $pdf->download('laporan-pdf');
-    }
 }

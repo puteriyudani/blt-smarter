@@ -34,12 +34,58 @@
     @endif
 
     <div class="table-responsive">
+        @foreach ($data as $kategori => $subkriterias)
+            <h5>Kategori Kriteria: {{ $kategori }}</h5>
+    
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama Sub Kriteria</th>
+                        <th scope="col">Prioritas</th>
+                        <th scope="col">Bobot</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($subkriterias as $subkriteria)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $subkriteria->nama }}</td>
+                            <td>{{ $subkriteria->prioritas }}</td>
+                            <td>{{ $subkriteria->bobot }}</td>
+                            <td>
+                                <form action="{{ route('subkriterias.destroy', $subkriteria->id) }}" method="POST">
+                                    <a href="{{ route('subkriterias.edit', $subkriteria->id) }}" style="text-decoration: none;">
+                                        <svg class="bi pe-none" width="20" height="16" style="fill: green;">
+                                            <use xlink:href="#edit" />
+                                        </svg>
+                                    </a>
+    
+                                    @csrf
+                                    @method('DELETE')
+    
+                                    <button class="btn mb-1" type="submit">
+                                        <svg class="bi pe-none" width="20" height="16" style="fill: red;">
+                                            <use xlink:href="#delete" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endforeach
+    </div>    
+
+    {{-- <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Nama Sub Kriteria</th>
                     <th scope="col">Kategori Kriteria</th>
+                    <th scope="col">Nama Sub Kriteria</th>
                     <th scope="col">Prioritas</th>
                     <th scope="col">Bobot</th>
                     <th scope="col">Aksi</th>
@@ -49,8 +95,8 @@
                 @foreach ($subkriterias as $subkriteria)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $subkriteria->nama }}</td>
                         <td>{{ $subkriteria->kriteria->nama }}</td>
+                        <td>{{ $subkriteria->nama }}</td>
                         <td>{{ $subkriteria->prioritas }}</td>
                         <td>{{ $subkriteria->bobot }}</td>
                         <td>
@@ -75,9 +121,9 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </div> --}}
 
-    {!! $subkriterias->links() !!}
+    {{-- {!! $subkriterias->links() !!} --}}
 @endsection
 
 @push('css')

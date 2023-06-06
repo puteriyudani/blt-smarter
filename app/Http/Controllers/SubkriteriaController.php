@@ -21,8 +21,24 @@ class SubkriteriaController extends Controller
      */
     public function index()
     {
-        $subkriterias = Subkriteria::with('kriteria')->paginate(10);
-        return view('subkriterias.index', compact('subkriterias'))->with('i', (request()->input('page', 1) - 1) * 10);
+        // $kriterias = Kriteria::all();
+        // $subkriterias = Subkriteria::with('kriteria')->paginate(10);
+        // return view('subkriterias.index', compact('subkriterias', 'kriterias'))->with('i', (request()->input('page', 1) - 1) * 10);
+
+        $subkriterias = SubKriteria::with('kriteria')->orderBy('kriteria_id')->get();
+        $data = [];
+
+        foreach ($subkriterias as $subkriteria) {
+            $kategori = $subkriteria->kriteria->nama;
+
+            if (!isset($data[$kategori])) {
+                $data[$kategori] = [];
+            }
+
+            $data[$kategori][] = $subkriteria;
+        }
+
+        return view('subkriterias.index', compact('data'));
     }
 
     /**
