@@ -50,20 +50,20 @@ class AlgoritmaController extends Controller
     private function hitung_utility($penilaian, $criterias, $minMax) {
         $utilities = [];
 
-    foreach ($penilaian as $key => $value1) {
-        foreach ($criterias as $kriteria => $value) {
-            if ($value->id == $value1->subkriteria->kriteria_id) {
-                $divisor = max($minMax[$value->id]) - min($minMax[$value->id]);
-                if ($divisor != 0) {
-                    $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
-                } else {
-                    $utilities[$value1->masyarakats->nama][] = 0; // atau nilai yang sesuai dengan kebutuhan Anda jika pembagi nol
+        foreach ($penilaian as $key => $value1) {
+            foreach ($criterias as $kriteria => $value) {
+                if ($value->id == $value1->subkriteria->kriteria_id) {
+                    $divisor = max($minMax[$value->id]) - min($minMax[$value->id]);
+                    if ($divisor != 0) {
+                        $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
+                    } else {
+                        $utilities[$value1->masyarakats->nama][] = 0; // atau nilai yang sesuai dengan kebutuhan Anda jika pembagi nol
+                    }
                 }
             }
         }
-    }
 
-    return $utilities;
+        return $utilities;
     }
 
     private function nilai_akhir_per_utility($utilities, $criterias) {
