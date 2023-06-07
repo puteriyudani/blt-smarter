@@ -7,7 +7,9 @@ use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\PenilaianTestingController;
 use App\Http\Controllers\SubkriteriaController;
+use App\Http\Controllers\TestingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +43,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     
     //perhitungan
     Route::get('perhitungan', [AlgoritmaController::class, 'index'])->name('perhitungan.index');
+
+    //testing
+    Route::resource('form-masyarakat', TestingController::class);
+    Route::resource('penilaian-form-masyarakat', PenilaianTestingController::class);
 });
 
 //petugas
