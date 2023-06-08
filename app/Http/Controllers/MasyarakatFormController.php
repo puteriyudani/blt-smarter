@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Masyarakat;
+use App\Models\MasyarakatForm;
 use Illuminate\Http\Request;
-class MasyarakatController extends Controller
+
+class MasyarakatFormController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
@@ -16,10 +17,9 @@ class MasyarakatController extends Controller
      */
     public function index()
     {
-        $masyarakats = Masyarakat::paginate(20);
+        $masyarakats_form = MasyarakatForm::get();
     
-        return view('masyarakats.index', compact('masyarakats'))
-            ->with('i', (request()->input('page', 1) - 1) * 20);
+        return view('form.index', compact('masyarakats_form'))->with('i');
     }
 
     /**
@@ -29,7 +29,7 @@ class MasyarakatController extends Controller
      */
     public function create()
     {
-        return view('masyarakats.create');
+        return view('form.create');
     }
 
     /**
@@ -41,38 +41,38 @@ class MasyarakatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NIK' => 'required',
             'nama' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
         ]);
     
-        Masyarakat::create($request->all());
+        MasyarakatForm::create($request->all());
      
-        return redirect()->route('masyarakats.index')
-                        ->with('success','Masyarakat created successfully.');
+        return redirect()->route('masyarakats-form.index')
+                        ->with('success','Data created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Masyarakat  $masyarakat
+     * @param  \App\Models\MasyarakatForm  $masyarakat_form
      * @return \Illuminate\Http\Response
      */
-    public function show(Masyarakat $masyarakat)
+
+    public function show(MasyarakatForm $masyarakat_form)
     {
-        return view('masyarakats.show',compact('masyarakat'));
+        return view('form.show',compact('masyarakat_form'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Masyarakat  $masyarakat
+     * @param  \App\Models\MasyarakatForm  $masyarakat_form
      * @return \Illuminate\Http\Response
      */
-    public function edit(Masyarakat $masyarakat)
+
+    public function edit(MasyarakatForm $masyarakat_form)
     {
-        return view('masyarakats.edit',compact('masyarakat'));
+        // dd($masyarakat_form);
+        return view('form.edit',compact('masyarakat_form'));
     }
 
     /**
@@ -82,19 +82,16 @@ class MasyarakatController extends Controller
      * @param  \App\Models\Masyarakat  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Masyarakat $masyarakat)
+    public function update(Request $request, MasyarakatForm $masyarakat_form)
     {
         $request->validate([
-            'NIK' => 'required',
             'nama' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required',
         ]);
     
-        $masyarakat->update($request->all());
+        $masyarakat_form->update($request->all());
     
-        return redirect()->route('masyarakats.index')
-                        ->with('success','Masyarakat updated successfully');
+        return redirect()->route('masyarakats-form.index')
+                        ->with('success','Data updated successfully');
     }
 
     /**
@@ -103,10 +100,10 @@ class MasyarakatController extends Controller
      * @param  \App\Models\Masyarakat  $masyarakat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Masyarakat $masyarakat)
+    public function destroy(MasyarakatForm $masyarakat_form)
     {
-        $masyarakat->delete();
+        $masyarakat_form->delete();
     
-        return back()->with('success','Masyarakat deleted successfully');
+        return back()->with('success','Data deleted successfully');
     }
 }

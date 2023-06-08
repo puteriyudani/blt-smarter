@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\AlgoritmaController;
+use App\Http\Controllers\AlgoritmaFormController;
+use App\Http\Controllers\AlgoritmaTestingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\MasyarakatFormController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\PenilaianFormController;
 use App\Http\Controllers\PenilaianTestingController;
 use App\Http\Controllers\SubkriteriaController;
 use App\Http\Controllers\TestingController;
@@ -45,8 +49,12 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('perhitungan', [AlgoritmaController::class, 'index'])->name('perhitungan.index');
 
     //testing
-    Route::resource('form-masyarakat', TestingController::class);
-    Route::resource('penilaian-form-masyarakat', PenilaianTestingController::class);
+    Route::resource('form-masyarakats', TestingController::class);
+    Route::resource('masyarakats-form', MasyarakatFormController::class);
+    Route::resource('penilaian-form', PenilaianFormController::class);
+    Route::get('perhitungan-form', [AlgoritmaFormController::class, 'index'])->name('perhitungan-form.index');
+    Route::get('rangking-form', [AlgoritmaFormController::class, 'rank'])->name('rangking-form.index');
+
 });
 
 //petugas

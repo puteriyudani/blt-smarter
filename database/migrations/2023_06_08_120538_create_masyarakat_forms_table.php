@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('form_masyarakat', function (Blueprint $table) {
+        Schema::create('masyarakat_forms', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->unsignedBigInteger('subkriteria_id');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_masyarakat');
+        Schema::dropIfExists('masyarakat_forms');
     }
 };
