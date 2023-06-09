@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use App\Models\Kriteria;
-use App\Models\MasyarakatForm;
-use App\Models\Penilaian;
-use App\Models\PenilaianForm;
+use App\Models\Penilaianform;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class PenilaianFormController extends Controller
+class PenilaianformController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
@@ -19,18 +18,18 @@ class PenilaianFormController extends Controller
     
     public function index()
     {
-        $masyarakats_form = MasyarakatForm::with('penilaian_form.subkriteria')->get();
+        $forms = Form::with('penilaianform.subkriteria')->get();
         $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
-        return view('form.penilaian', compact('masyarakats_form', 'kriterias'));
+        return view('form.penilaian', compact('forms', 'kriterias'));
     }
 
     public function store(Request $request)
     {
         try {
-            DB::select("TRUNCATE penilaian_form");
+            DB::select("TRUNCATE penilaianform");
             foreach($request->subkriteria_id as $key => $value) {
                 foreach($value as $key_1 => $value_1) {
-                    PenilaianForm::create([
+                    Penilaianform::create([
                         'form_id' => $key,
                         'subkriteria_id' => $value_1
                     ]);

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
-use App\Models\MasyarakatForm;
+use App\Models\Form;
 use App\Models\PenilaianForm;
 use Illuminate\Http\Request;
 
@@ -14,29 +14,29 @@ class AlgoritmaFormController extends Controller
     }
     
     public function index() {
-        $penilaian_form = PenilaianForm::with('subkriteria', 'masyarakats_form')->get();
-        if(count($penilaian_form) == 0) {
-            return redirect(route('penilaian-form.index'));
+        $penilaianform = PenilaianForm::with('subkriteria', 'forms')->get();
+        if(count($penilaianform) == 0) {
+            return redirect(route('penilaianform.index'));
         }
 
-        $masyarakats_form = MasyarakatForm::with('penilaian_form.subkriteria')->get();
+        $forms = Form::with('penilaianform.subkriteria')->get();
         $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
 
         //mencari min max
-        $minMax = $this->min_max_penilaian($kriterias, $penilaian_form);
+        $minMax = $this->min_max_penilaian($kriterias, $penilaianform);
 
         //utility
-        $utility = $this->hitung_utility($penilaian_form, $kriterias, $minMax);
+        $utility = $this->hitung_utility($penilaianform, $kriterias, $minMax);
 
         $nilaiAkhirPerUtility = $this->nilai_akhir_per_utility($utility, $kriterias);
 
-        return view('form.perhitungan', compact('masyarakats_form', 'kriterias', 'utility', 'nilaiAkhirPerUtility'));
+        return view('form.perhitungan', compact('forms', 'kriterias', 'utility', 'nilaiAkhirPerUtility'));
     }
 
-    private function min_max_penilaian($criterias, $penilaian_form){
+    private function min_max_penilaian($criterias, $penilaianform){
         $minMax = [];
         foreach ($criterias as $kriteria => $value) {
-            foreach ($penilaian_form as $key => $value1) {
+            foreach ($penilaianform as $key => $value1) {
                 if ($value->id == $value1->subkriteria->kriteria_id) {
                     $minMax[$value->id][] = $value1->subkriteria->bobot;
                 }
@@ -46,17 +46,17 @@ class AlgoritmaFormController extends Controller
         return $minMax;
     }
 
-    private function hitung_utility($penilaian_form, $criterias, $minMax) {
+    private function hitung_utility($penilaianform, $criterias, $minMax) {
         $utilities = [];
 
-        foreach ($penilaian_form as $key => $value1) {
+        foreach ($penilaianform as $key => $value1) {
             foreach ($criterias as $kriteria => $value) {
                 if ($value->id == $value1->subkriteria->kriteria_id) {
                     $divisor = max($minMax[$value->id]) - min($minMax[$value->id]);
                     if ($divisor != 0) {
-                        $utilities[$value1->masyarakats_form->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
+                        $utilities[$value1->forms->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
                     } else {
-                        $utilities[$value1->masyarakats_form->nama][] = 0; // atau nilai yang sesuai dengan kebutuhan Anda jika pembagi nol
+                        $utilities[$value1->forms->nama][] = 0; // atau nilai yang sesuai dengan kebutuhan Anda jika pembagi nol
                     }
                 }
             }
@@ -95,25 +95,25 @@ class AlgoritmaFormController extends Controller
     }
 
     public function rank() {
-        $penilaian_form = PenilaianForm::with('subkriteria', 'masyarakats_form')->get();
-        if(count($penilaian_form) == 0) {
-            return redirect(route('penilaian-form.index'));
+        $penilaianform = PenilaianForm::with('subkriteria', 'forms')->get();
+        if(count($penilaianform) == 0) {
+            return redirect(route('penilaianform.index'));
         }
 
-        $masyarakats_form = MasyarakatForm::with('penilaian_form.subkriteria')->get();
+        $forms = Form::with('penilaianform.subkriteria')->get();
         $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
 
         //mencari min max
-        $minMax = $this->min_max_penilaian($kriterias, $penilaian_form);
+        $minMax = $this->min_max_penilaian($kriterias, $penilaianform);
 
         //utility
-        $utility = $this->hitung_utility($penilaian_form, $kriterias, $minMax);
+        $utility = $this->hitung_utility($penilaianform, $kriterias, $minMax);
 
         $nilaiAkhirPerUtility = $this->nilai_akhir_per_utility($utility, $kriterias);
 
         //rank
         $nilaiAkhir = $this->prosesrank($utility, $nilaiAkhirPerUtility);
-        return view('form.rangking', compact('masyarakats_form', 'nilaiAkhir'))
+        return view('form.rangking', compact('forms', 'nilaiAkhir'))
             ->with('i');
     }
 }

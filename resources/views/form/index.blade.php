@@ -27,14 +27,14 @@
 
     <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2 me-3">Data</h1>
-        <a href="{{ route('masyarakats-form.create') }}" class="me-3">
+        <a href="{{ route('forms.create') }}" class="me-3">
             <svg class="bi pe-none mt-2" width="30" height="22" style="fill: green;">
                 <use xlink:href="#add" />
             </svg>
         </a>
-        <a href="{{ route('penilaian-form.index') }}" class="btn btn-primary me-2">Penilaian</a>
-        <a href="{{ route('perhitungan-form.index') }}" class="btn btn-primary me-2">Perhitungan</a>
-        <a href="{{ route('rangking-form.index') }}" class="btn btn-primary">Rangking</a>
+        <a href="{{ route('penilaianform.index') }}" class="btn btn-primary me-2">Penilaian</a>
+        <a href="{{ route('perhitunganform.index') }}" class="btn btn-primary me-2">Perhitungan</a>
+        <a href="{{ route('rangkingform.index') }}" class="btn btn-primary">Rangking</a>
     </div>
 
     <div class="table-responsive">
@@ -47,13 +47,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($masyarakats_form as $masyarakat_form)
+                @foreach ($forms as $form)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $masyarakat_form->nama }}</td>
+                        <td>{{ $form->nama }}</td>
                         <td>
-                            <form action="{{ route('masyarakats-form.destroy', $masyarakat_form->id) }}" method="POST">
-                                <a href="{{ route('masyarakats-form.edit', $masyarakat_form->id) }}"
+                            <form action="{{ route('forms.destroy', $form->id) }}" method="POST">
+                                <a href="{{ route('forms.edit', $form->id) }}"
                                     style="text-decoration: none;">
                                     <svg class="bi pe-none" width="20" height="16" style="fill: green;">
                                         <use xlink:href="#edit" />

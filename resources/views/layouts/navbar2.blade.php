@@ -178,7 +178,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('masyarakats-form.index') }}" class="nav-link text-white">
+                            <a href="{{ route('forms.index') }}" class="nav-link text-white">
                                 <svg class="bi pe-none me-2" width="16" height="16">
                                     <use xlink:href="#form-masyarakat" />
                                 </svg>

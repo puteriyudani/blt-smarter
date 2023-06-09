@@ -17,12 +17,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($masyarakats_form as $masyarakat_form => $valt)
+                    @forelse ($forms as $form => $valt)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $valt->nama }}</td>
-                            @if (count($valt->penilaian_form) > 0)
-                                @foreach ($valt->penilaian_form as $key => $value)
+                            @if (count($valt->penilaianform) > 0)
+                                @foreach ($valt->penilaianform as $key => $value)
                                     <td>
                                         {{ $value->subkriteria->bobot }}
                                     </td>

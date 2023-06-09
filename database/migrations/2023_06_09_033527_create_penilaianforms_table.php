@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('penilaian_form', function (Blueprint $table) {
+        Schema::create('penilaianforms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->unsignedBigInteger('subkriteria_id');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penilaian_form');
+        Schema::dropIfExists('penilaianforms');
     }
 };

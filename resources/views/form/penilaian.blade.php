@@ -21,7 +21,7 @@
         </div>
     @endif
 
-    <form action="{{ route('penilaian-form.store') }}" method="POST">
+    <form action="{{ route('penilaianform.store') }}" method="POST">
         @csrf
         <table class="table table-striped table-sm">
             <thead>
@@ -33,16 +33,16 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($masyarakats_form as $masyarakat_form => $valt)
+                @forelse ($forms as $form => $valt)
                     <tr>
                         <td>{{ $valt->nama }}</td>
-                        @if (count($valt->penilaian_form) > 0)
+                        @if (count($valt->penilaianform) > 0)
                             @foreach ($kriterias as $kriteria => $value)
                                 <td>
                                     <select name="subkriteria_id[{{ $valt->id }}][]" class="form-control">
                                         @foreach ($value->subkriterias as $k_1 => $v_1)
                                             <option value="{{ $v_1->id }}"
-                                                {{ $v_1->id == $valt->penilaian_form[$kriteria]->subkriteria_id ? 'selected' : '' }}>
+                                                {{ $v_1->id == $valt->penilaianform[$kriteria]->subkriteria_id ? 'selected' : '' }}>
                                                 {{ $v_1->nama }}</option>
                                         @endforeach
                                     </select>

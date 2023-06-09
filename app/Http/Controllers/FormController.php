@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MasyarakatForm;
+use App\Models\Form;
 use Illuminate\Http\Request;
 
-class MasyarakatFormController extends Controller
+class FormController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
@@ -17,9 +17,9 @@ class MasyarakatFormController extends Controller
      */
     public function index()
     {
-        $masyarakats_form = MasyarakatForm::get();
+        $forms = Form::get();
     
-        return view('form.index', compact('masyarakats_form'))->with('i');
+        return view('form.index', compact('forms'))->with('i');
     }
 
     /**
@@ -41,68 +41,70 @@ class MasyarakatFormController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|array',
+            'nama.*' => 'required',
         ]);
-    
-        MasyarakatForm::create($request->all());
-     
-        return redirect()->route('masyarakats-form.index')
-                        ->with('success','Data created successfully.');
+
+        $jumlahMasyarakat = count($request->nama);
+
+        for ($i = 0; $i < $jumlahMasyarakat; $i++) {
+            Form::create(['nama' => $request->nama[$i]]);
+        }
+
+        return redirect()->route('penilaianform.index')->with('success', 'Data created successfully.');
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MasyarakatForm  $masyarakat_form
+     * @param  \App\Models\Form  $form
      * @return \Illuminate\Http\Response
      */
-
-    public function show(MasyarakatForm $masyarakat_form)
+    public function show(Form $form)
     {
-        return view('form.show',compact('masyarakat_form'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MasyarakatForm  $masyarakat_form
+     * @param  \App\Models\Form  $form
      * @return \Illuminate\Http\Response
      */
-
-    public function edit(MasyarakatForm $masyarakat_form)
+    public function edit(Form $form)
     {
-        // dd($masyarakat_form);
-        return view('form.edit',compact('masyarakat_form'));
+        return view('form.edit',compact('form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Masyarakat  $masyarakat
+     * @param  \App\Models\Form  $form
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MasyarakatForm $masyarakat_form)
+    public function update(Request $request, Form $form)
     {
         $request->validate([
             'nama' => 'required',
         ]);
     
-        $masyarakat_form->update($request->all());
+        $form->update($request->all());
     
-        return redirect()->route('masyarakats-form.index')
+        return redirect()->route('forms.index')
                         ->with('success','Data updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Masyarakat  $masyarakat
+     * @param  \App\Models\Form  $form
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MasyarakatForm $masyarakat_form)
+    public function destroy(Form $form)
     {
-        $masyarakat_form->delete();
+        $form->delete();
     
         return back()->with('success','Data deleted successfully');
     }

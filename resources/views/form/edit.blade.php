@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form action="{{ route('masyarakats-form.update', $masyarakat_form->id) }}" method="POST">
+    <form action="{{ route('forms.update', $form->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -24,7 +24,7 @@
                 <label for="inputNama" class="col-form-label">Nama</label>
             </div>
             <div class="col-auto">
-                <input type="text" name="nama" value="{{ $masyarakat_form->nama }}" id="inputNama"
+                <input type="text" name="nama" value="{{ $form->nama }}" id="inputNama"
                     class="form-control" aria-describedby="NamaHelpInline">
             </div>
         </div>

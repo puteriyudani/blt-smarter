@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MasyarakatForm extends Model
+class Form extends Model
 {
     use HasFactory;
 
-    protected $table = 'masyarakat_forms';
+    protected $table = 'forms';
     protected $guarded = [];
     protected $fillable = ['nama'];
 
-    public function penilaian_form()
+    public function penilaianform()
     {
-        return $this->hasMany(PenilaianForm::class, 'form_id');
+        return $this->hasMany(Penilaianform::class, 'form_id');
     }
 }

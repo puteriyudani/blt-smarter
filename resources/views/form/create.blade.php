@@ -15,19 +15,40 @@
         </div>
     @endif
 
-    <form action="{{ route('masyarakats-form.store') }}" method="POST">
-        @csrf
-        <div class="row g-3 mb-2 align-items-center">
-            <div class="col-2">
-                <label for="inputNama" class="col-form-label">Nama</label>
+    @if (!isset($jumlahMasyarakat))
+        <form action="{{ route('form-masyarakats.store') }}" method="POST">
+            @csrf
+            <div class="row g-3 mb-2 align-items-center">
+                <div class="col-3">
+                    <label for="jumlah_masyarakat" class="col-form-label">Masukkan Jumlah Masyarakat</label>
+                </div>
+                <div class="col-auto">
+                    <input type="number" name="jumlah_masyarakat" id="jumlah_masyarakat" class="form-control"
+                        aria-describedby="jumlah_masyarakatHelpInline" placeholder="minimal 2">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
             </div>
-            <div class="col-auto">
-                <input type="text" name="nama" id="inputNama" class="form-control" aria-describedby="NamaHelpInline">
-            </div>
-        </div>
+        </form>
+    @else
+        <form action="{{ route('forms.store') }}" method="POST">
+            @for ($i = 1; $i <= $jumlahMasyarakat; $i++)
+                @csrf
+                <div class="row g-3 mb-2 align-items-center">
+                    <div class="col-2">
+                        <label for="inputNama" class="col-form-label">Nama {{ $i }}</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" name="nama[]" id="inputNama" class="form-control"
+                            aria-describedby="NamaHelpInline">
+                    </div>
+                </div>
+            @endfor
 
-        <button type="submit" class="btn btn-primary">Simpan</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+    @endif
 @endsection
 
 @push('css')

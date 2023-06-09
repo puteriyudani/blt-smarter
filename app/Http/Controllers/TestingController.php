@@ -9,15 +9,14 @@ class TestingController extends Controller
 {
     public function index()
     {
-        return view('testing.form-masyarakat');
+        return view('form.create');
     }
 
     public function store(Request $request)
     {
-        $kriterias = Kriteria::with('subkriterias')->orderBy('id', 'ASC')->get();
         $jumlahMasyarakat = $request->input('jumlah_masyarakat');
 
-        return view('testing.form-masyarakat', compact('jumlahMasyarakat', 'kriterias'));
+        return view('form.create', compact('jumlahMasyarakat'));
     }
 
 }

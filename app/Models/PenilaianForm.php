@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PenilaianForm extends Model
+class Penilaianform extends Model
 {
-    protected $table = 'penilaian_form';
+    use HasFactory;
+
+    protected $table = 'penilaianform';
     protected $guarded = [];
     protected $fillable = ['form_id', 'subkriteria_id'];
 
@@ -16,7 +18,7 @@ class PenilaianForm extends Model
         return $this->belongsTo(Subkriteria::class, 'subkriteria_id');
     }
 
-    public function masyarakats_form() {
-        return $this->belongsTo(MasyarakatForm::class, 'form_id');
+    public function forms() {
+        return $this->belongsTo(Form::class, 'form_id');
     }
 }
