@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
 use App\Models\Form;
-use App\Models\PenilaianForm;
+use App\Models\Penilaianform;
 use Illuminate\Http\Request;
 
 class AlgoritmaFormController extends Controller
@@ -14,7 +14,7 @@ class AlgoritmaFormController extends Controller
     }
     
     public function index() {
-        $penilaianform = PenilaianForm::with('subkriteria', 'forms')->get();
+        $penilaianform = Penilaianform::with('subkriteria', 'forms')->get();
         if(count($penilaianform) == 0) {
             return redirect(route('penilaianform.index'));
         }
@@ -95,7 +95,7 @@ class AlgoritmaFormController extends Controller
     }
 
     public function rank() {
-        $penilaianform = PenilaianForm::with('subkriteria', 'forms')->get();
+        $penilaianform = Penilaianform::with('subkriteria', 'forms')->get();
         if(count($penilaianform) == 0) {
             return redirect(route('penilaianform.index'));
         }
