@@ -48,10 +48,10 @@ class AlgoritmaFormController extends Controller
 
     private function hitung_utility($penilaianform, $criterias, $minMax) {
         $utilities = [];
-
+    
         foreach ($penilaianform as $key => $value1) {
             foreach ($criterias as $kriteria => $value) {
-                if ($value->id == $value1->subkriteria->kriteria_id) {
+                if ($value->id == $value1->subkriteria->kriteria_id && $value1->forms) {
                     $divisor = max($minMax[$value->id]) - min($minMax[$value->id]);
                     if ($divisor != 0) {
                         $utilities[$value1->forms->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
@@ -61,7 +61,7 @@ class AlgoritmaFormController extends Controller
                 }
             }
         }
-
+    
         return $utilities;
     }
 

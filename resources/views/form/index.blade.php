@@ -47,14 +47,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($forms as $form)
+                @forelse ($forms as $form)
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $form->nama }}</td>
                         <td>
                             <form action="{{ route('forms.destroy', $form->id) }}" method="POST">
-                                <a href="{{ route('forms.edit', $form->id) }}"
-                                    style="text-decoration: none;">
+                                <a href="{{ route('forms.edit', $form->id) }}" style="text-decoration: none;">
                                     <svg class="bi pe-none" width="20" height="16" style="fill: green;">
                                         <use xlink:href="#edit" />
                                     </svg>
@@ -71,7 +70,13 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td>Tidak ada data</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
