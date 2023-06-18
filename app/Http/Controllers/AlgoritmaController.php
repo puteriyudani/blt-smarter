@@ -52,12 +52,12 @@ class AlgoritmaController extends Controller
     
         foreach ($penilaian as $key => $value1) {
             foreach ($criterias as $kriteria => $value) {
-                if ($value->id == $value1->subkriteria->kriteria_id && $value1->forms) {
+                if ($value->id == $value1->subkriteria->kriteria_id && $value1->masyarakats) {
                     $divisor = max($minMax[$value->id]) - min($minMax[$value->id]);
                     if ($divisor != 0) {
-                        $utilities[$value1->forms->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
+                        $utilities[$value1->masyarakats->nama][] = round(($value1->subkriteria->bobot - min($minMax[$value->id])) / $divisor, 3);
                     } else {
-                        $utilities[$value1->forms->nama][] = 0; // atau nilai yang sesuai dengan kebutuhan Anda jika pembagi nol
+                        $utilities[$value1->masyarakats->nama][] = 0; // atau nilai yang sesuai dengan kebutuhan Anda jika pembagi nol
                     }
                 }
             }

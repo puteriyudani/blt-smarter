@@ -26,6 +26,7 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th scope="col">Nama</th>
                     @foreach ($kriterias as $kriteria => $value)
                         <th>{{ $value->nama }}</th>
@@ -35,6 +36,7 @@
             <tbody>
                 @forelse ($forms as $form => $valt)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $valt->nama }}</td>
                         @if (count($valt->penilaianform) > 0)
                             @foreach ($kriterias as $kriteria => $value)

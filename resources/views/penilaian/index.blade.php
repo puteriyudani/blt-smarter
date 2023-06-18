@@ -26,6 +26,7 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
+                    <th>No</th>
                     <th scope="col">Nama Masyarakat</th>
                     @foreach ($kriterias as $kriteria => $value)
                         <th>{{ $value->nama }}</th>
@@ -36,6 +37,7 @@
                 @forelse ($masyarakats as $masyarakat => $valt)
                     <tr>
                         {{-- <input type="hidden" value="{{ $valt->id }}" name="masyarakat_id[]"> --}}
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $valt->nama }}</td>
                         @if (count($valt->penilaian) > 0)
                             @foreach ($kriterias as $kriteria => $value)

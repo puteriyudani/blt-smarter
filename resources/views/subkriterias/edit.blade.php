@@ -18,7 +18,7 @@
     <form action="{{ route('subkriterias.update', $subkriteria->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <input type="hidden" name="kriteria_id_old" value="{{ $subkriteria->kriteria_id }}" >
+        {{-- <input type="hidden" name="kriteria_id_old" value="{{ $subkriteria->kriteria_id }}" > --}}
         <div class="row g-3 mb-2 align-items-center">
             <div class="col-2">
                 <label for="inputNama" class="col-form-label">Nama</label>
