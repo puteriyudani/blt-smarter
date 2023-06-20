@@ -36,7 +36,7 @@ class PenilaianformController extends Controller
                 }
             }
 
-            return back()->with('msg', 'Berhasil disimpan');
+            return redirect()->route('perhitunganform.index')->with('msg', 'Berhasil disimpan');
         } catch (Exception $e) {
             Log::emergency("File:", [$e->getFile()], "Line:", [$e->getLine()], "Message:", [$e->getMessage()]);
             die("Gagal");

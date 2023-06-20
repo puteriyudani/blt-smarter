@@ -39,6 +39,9 @@
             </table>
         </div>
     </div>
+
+    <a href="{{ route('forms.index') }}"><button class="btn mb-3" type="submit">Kembali ke halaman form</button></a>
+
 @endsection
 
 @push('css')

@@ -106,7 +106,7 @@
 
     {{-- NAVBAR --}}
     <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 fs-6" href="{{ route('beranda') }}">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 fs-6" href="{{ route('berandaadmin') }}">
             <img class="img-fluid ms-3 me-2" src="{{ asset('asset') }}/image/logo.png" alt="logo" width="30" />
             BLT-DD SMARTER
         </a>

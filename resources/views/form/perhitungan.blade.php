@@ -115,6 +115,7 @@
             </table>
         </div>
     </div>
+    <a href="{{ route('rangkingform.index') }}"><button class="btn btn-primary mb-3" type="submit">Lihat Rangking</button></a>
 @endsection
 
 @push('css')
