@@ -112,9 +112,11 @@ class AlgoritmaController extends Controller
 
         $nilaiAkhirPerUtility = $this->nilai_akhir_per_utility($utility, $kriterias);
 
+        $hasilPembagianPerOrang = session('hasilPembagianPerOrang');
+
         //rank
         $nilaiAkhir = $this->prosesrank($utility, $nilaiAkhirPerUtility);
-        return view('rangking.index', compact('masyarakats', 'nilaiAkhir'))
+        return view('rangking.index', compact('masyarakats', 'nilaiAkhir', 'hasilPembagianPerOrang'))
             ->with('i');
     }
 }

@@ -7,6 +7,12 @@
                 <h1 class="h2 me-3">Rangking</h1>
             </div>
 
+            @if (isset($hasilPembagianPerOrang) && $hasilPembagianPerOrang !== null)
+                <p>Jumlah Penerima: {{ $hasilPembagianPerOrang }}</p>
+            @else
+                <p>Tidak ada data.</p>
+            @endif
+
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>

@@ -10,6 +10,7 @@ use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PenilaianformController;
+use App\Http\Controllers\PersenController;
 use App\Http\Controllers\SubkriteriaController;
 use App\Http\Controllers\TestingController;
 use App\Http\Controllers\UserController;
@@ -65,4 +66,5 @@ Route::middleware(['auth', 'user-access:petugas'])->group(function () {
     Route::resource('penilaian', PenilaianController::class);
     Route::get('rangking', [AlgoritmaController::class, 'rank'])->name('rangking.index');
     Route::post('import-excel', [ExcelController::class, 'import'])->name('import.excel');
+    Route::resource('persen', PersenController::class);
 });
